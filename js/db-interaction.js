@@ -63,6 +63,11 @@ function getMyMovies(user) {
 			url:`${firebase.getFBsettings().databaseURL}/movies.json?orderBy="user"&equalTo="${user}"`,
 			type: "GET"
 		}).done(function(movieData){
+			for(var obj in movieData){
+				if(movieData[obj].boolean===true){
+					delete movieData[obj];
+				}
+			}
 			resolve(movieData);
 		});
 	});
@@ -104,10 +109,10 @@ function addMovieToFB(movieObj) {
 function deleteMovie(movieId) {
 	return new Promise(function(resolve, reject){
 		$.ajax({
-			url:`${firebase.getFBsettings().databaseURL}/songs/${movieId}.json`,
+			url:`${firebase.getFBsettings().databaseURL}/movies/${movieId}.json`,
 			method:'DELETE'
-		}).done(function(){
-			resolve();//resolve goes to delete when delete button is clicked
+		}).done(function(movieId){
+			resolve(movieId);//resolve goes to delete when delete button is clicked
 		});
 	});
 

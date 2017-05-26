@@ -30,7 +30,7 @@ function loadMoviesToDOM (type) {
     console.log("current user is", currentUser);
 	db.getMyMovies(currentUser)
 	.then(function(data) {
-        console.log("the data on loadMoviesToDOM is", data);
+       // console.log("the data on loadMoviesToDOM is", data);
 		var allMovies = Object.keys(data);  //give keys to data to id buttons
 		let myMoviesArray = [];
 		allMovies.forEach( (key) => {
@@ -55,7 +55,7 @@ function showWatched(event){
     console.log("current user is", currentUser);
     db.getwatchedMovies(currentUser)
     .then(function(data) {
-        console.log("the data on loadMoviesToDOM is", data);
+        //console.log("the data on loadMoviesToDOM is", data);
         var allMovies = Object.keys(data);  //give keys to data to id buttons
         let myMoviesArray = [];
         allMovies.forEach( (key) => {
@@ -141,9 +141,6 @@ $("#searchInput").keyup( (keyin) => {
 	}
 });
 
-$("#showFavorites").click( () => {
-	loadMoviesToDOM(3);
-});
 
 
 $("#auth-btn").click( () => {
@@ -223,17 +220,22 @@ $(document).on('click', '.card', function(event) {
   let stars = $(event.currentTarget).find('.rating .star');
     for (let i = 0; i < stars.length; i++) {
       if ($(event.target).data('count') >= $(stars[i]).data('count')) {
-        $(stars[i]).addClass('clicked');
+        $(stars[i]).addClass('true');
       } else {
-        $(stars[i]).removeClass('clicked');
+        $(stars[i]).removeClass('true');
       }
     }
 
 });
 
 $(document).on("click", ".delete", function() {
+    console.log("delete button clicked");
 	let movieId = $(this).data("movie-id");
-	db.deleteMovie(movieId);
+    console.log("Movie id is", movieId);
+	db.deleteMovie(movieId)
+    .then(function(){
+        loadMoviesToDOM();
+    });
 	//logic for reloading based on which button is selected already
 });
 
