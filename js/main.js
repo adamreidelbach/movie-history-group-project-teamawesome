@@ -25,6 +25,10 @@ Handlebars.registerHelper('grouped_each', function(every, context, options) {
     return out;
 });
 
+Handlebars.registerHelper({eq: function (v1, v2) {
+    return v1 === v2;
+}});
+
 function loadMoviesToDOM (type) {
 	let currentUser = user.getUser();
     console.log("current user is", currentUser);
