@@ -68,6 +68,22 @@ function getMyMovies(user) {
 	});
 }
 
+function getwatchedMovies(user) {
+	return new Promise(function(resolve,reject){
+		$.ajax({
+			url:`${firebase.getFBsettings().databaseURL}/movies.json?orderBy="user"&equalTo="${user}"`,
+			type: "GET"
+		}).done(function(movieData){
+			for(var obj in movieData){
+				if(movieData[obj].boolean===false){
+				delete movieData[obj];
+				}
+			}
+			resolve(movieData);
+		});
+	});
+}
+
 
 function addMovieToFB(movieObj) {
 	console.log("add movie", movieObj);
@@ -130,5 +146,6 @@ module.exports = {
   getMyMovies,//query firebase
   addMovieToFB,//add to watchlist
   deleteMovie, //delete from firebase
-  setRating //toggle boolean for watched
+  setRating, //toggle boolean for watched
+  getwatchedMovies
 };
