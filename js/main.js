@@ -60,7 +60,7 @@ function showWatched(event){
         let myMoviesArray = [];
         allMovies.forEach( (key) => {
             data[key].id = key;
-            myMoviesArray.push(data[key]);        
+            myMoviesArray.push(data[key]);
         });
 
     templates.populateCards(myMoviesArray);
@@ -98,6 +98,9 @@ $(document).on( "click", ".star", function(event){
         fb: "fb",
         id: objId
     };
+
+    $("#breadcrumb").html(`<a href="#!" class="breadcrumb black-text">Search Results</a>`);
+    $("#breadcrumb").append(`<a href="#!" class="breadcrumb black-text">Watched</a>`);
 
     console.log("addToWatchedObj", addToWatchedObj);
 	db.setRating(addToWatchedObj, addToWatchedObj.id)
@@ -229,14 +232,16 @@ $(document).on('click', '.card', function(event) {
 });
 
 $(document).on("click", ".delete", function() {
+    let watchAdd= event.target.parentElement;
+    let card= watchAdd.closest(".card");
+    let movieId = card.id;
+    console.log("card", card.id);
+    console.log("movieId", movieId);
     console.log("delete button clicked");
-	let movieId = $(this).data("movie-id");
-    console.log("Movie id is", movieId);
 	db.deleteMovie(movieId)
     .then(function(){
         loadMoviesToDOM();
     });
-	//logic for reloading based on which button is selected already
 });
 
 
