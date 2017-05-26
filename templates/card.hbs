@@ -32,12 +32,23 @@
           {{#if boolean}}
             <li>{{boolean}}</li>
           {{/if}}
-          {{#if ratings}}
-            <li>{{ratings}}</li>
-          {{/if}}
           {{#if mdn}}
           <a class="waves-effect waves-light btn blue-grey lighten-2 addtowatch"><i class="material-icons left">add</i>Watchlist</a>
           {{else}}
+            {{#if (eq ratings 0)}}
+              <div class="rating">
+                  <span class="star" data-count="1">★</span>
+                  <span class="star" data-count="2">★</span>
+                  <span class="star" data-count="3">★</span>
+                  <span class="star" data-count="4">★</span>
+                  <span class="star" data-count="5">★</span>
+                  <span class="star" data-count="6">★</span>
+                  <span class="star" data-count="7">★</span>
+                  <span class="star" data-count="8">★</span>
+                  <span class="star" data-count="9">★</span>
+                  <span class="star" data-count="10">★</span>
+              </div>
+            {{/if}}
             {{#if (eq ratings 1)}}
               <div class="rating">
                   <span class="star clicked" data-count="1">★</span>

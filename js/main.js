@@ -205,7 +205,7 @@ $(document).on('click', ".addtowatch", function(event){
         actors: actors,
         releaseDate: date,
         poster: poster,
-        ratings: null,
+        ratings: 0,
         boolean: false,
         fb: "fb",
         user: userName
