@@ -190,6 +190,8 @@ $(document).on('click', ".addtowatch", function(event){
     let card= watchAdd.closest(".card");
     let poster= card.querySelector('.cardImages').src;
 
+    alert("Added to your watchlist");
+
     //console.log("poster shit", poster);
     let userName= user.getUser();
     if(userName=== null){
