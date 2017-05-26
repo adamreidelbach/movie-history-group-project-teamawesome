@@ -50,11 +50,28 @@ function getNewMovies (search) {
 	templates.newMovieList(newMovieList);
 }
 
+function showWatched(event){
+    let currentUser = user.getUser();
+    console.log("current user is", currentUser);
+    db.getwatchedMovies(currentUser)
+    .then(function(data) {
+        console.log("the data on loadMoviesToDOM is", data);
+        var allMovies = Object.keys(data);  //give keys to data to id buttons
+        let myMoviesArray = [];
+        allMovies.forEach( (key) => {
+            data[key].id = key;
+            myMoviesArray.push(data[key]);        
+        });
+
+    templates.populateCards(myMoviesArray);
+       // console.log("my movies array on show watched",myMoviesArray);
+    });
+}
 
 
-$("#showWatched").click( () => {
-	//highlight button
-	loadMoviesToDOM(2);
+
+$("#showWatched").click( (event) => {
+  showWatched();
 });
 
 $("#showUnwatched").click( () => {
@@ -83,7 +100,10 @@ $(document).on( "click", ".star", function(event){
     };
 
     console.log("addToWatchedObj", addToWatchedObj);
-	db.setRating(addToWatchedObj, addToWatchedObj.id);
+	db.setRating(addToWatchedObj, addToWatchedObj.id)
+    .then(function(event){
+        showWatched();
+    });
 });
 
 $("#unTracked").click( () => {
